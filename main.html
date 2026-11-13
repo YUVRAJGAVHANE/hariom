@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hari Om Avhad | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7fcfa;--surface:#ffffff;--ink:#0e2c2b;--muted:#4a6866;--line:#d6eae5;--hdr:rgba(247,252,250,.85);
+  color-scheme:light;--primary:#0f766e;--accent:#f0a020;--soft:#e2f5f0;--todo:#fff6dc;--todo-line:#d9a520;
+  --code-bg:#eaf7f3;--code-ink:#0e2c2b;--code-key:#0f766e;--code-str:#b86b00;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.65;font-size:17px;overflow-x:hidden}
+h1,h2,h3{font-family:Unbounded,Manrope,sans-serif;line-height:1.2;margin:0;font-weight:600}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+/* drifting background */
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.22}
+.bg i:nth-child(1){width:46vmax;height:46vmax;background:var(--primary);top:-18vmax;left:-12vmax;animation:drift1 22s ease-in-out infinite alternate}
+.bg i:nth-child(2){width:38vmax;height:38vmax;background:var(--accent);bottom:-16vmax;right:-10vmax;opacity:.2;animation:drift2 26s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(14vmax,10vmax) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-12vmax,-8vmax) scale(1.1)}}
+/* header */
+header{position:sticky;top:0;z-index:10;background:var(--hdr);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;flex-wrap:wrap}
+.logo{font-family:Unbounded,sans-serif;font-weight:700;font-size:16px;text-decoration:none;color:var(--primary)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{position:relative;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px;padding:8px 12px;transition:color .2s}
+nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:2px;height:3px;border-radius:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+nav a:hover{color:var(--ink)}
+nav a:hover::after,nav a[aria-current="page"]::after{transform:scaleX(1)}
+nav a[aria-current="page"]{color:var(--ink)}
+/* pages and animation */
+.page{display:none;padding:52px 0 72px}
+.page.on{display:block;animation:pagein .5s ease both}
+@keyframes pagein{from{opacity:0;transform:translateY(14px)}}
+.rv{animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.98)}}
+h2.title{font-size:clamp(28px,4.6vw,44px);color:var(--ink);margin-bottom:12px}
+h2.title::after{content:"";display:block;width:64px;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--primary),var(--accent));margin-top:14px;transform-origin:left;animation:grow .8s .2s ease backwards}
+@keyframes grow{from{transform:scaleX(0)}}
+.sub{color:var(--muted);margin:0 0 32px;max-width:62ch}
+h3.sec{font-size:20px;color:var(--primary);margin:38px 0 14px}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--primary);color:var(--primary);background:transparent;transition:transform .2s,box-shadow .2s,background .2s}
+.btn.main{background:var(--primary);color:var(--bg)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 22px -10px var(--primary)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+/* about */
+.about-grid{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:28px;position:sticky;top:90px}
+.avatar{position:relative;width:120px;height:120px;border-radius:50%;background:var(--primary);color:var(--bg);display:grid;place-items:center;font-family:Unbounded,sans-serif;font-weight:700;font-size:38px;margin:6px 0 24px 6px}
+.avatar::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(var(--accent),var(--primary),var(--accent));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.side h1{font-size:26px}
+.side .role{margin:6px 0 16px;font-weight:700;color:var(--primary);min-height:1.65em}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--accent);margin-left:2px;vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.side p{margin:0 0 10px;color:var(--muted);font-size:15.5px}
+.side a{word-break:break-word}
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:18px;padding:20px 22px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.7;overflow-x:auto;white-space:pre;margin-bottom:8px;border:1px solid var(--line)}
+.code .k{color:var(--code-key)}.code .s{color:var(--code-str)}.code .d{opacity:.6}
+ul.plain{margin:0;padding-left:20px;color:var(--muted)}
+ul.plain li{margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--soft);color:var(--primary);padding:7px 15px;border-radius:999px;font-weight:700;font-size:14.5px;transition:transform .2s,background .2s,color .2s}
+.chip:hover{transform:translateY(-4px) rotate(-2deg);background:var(--accent);color:#1a1405}
+.chip.learn{background:transparent;border:1.5px dashed var(--primary)}
+.row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px}
+.row h3{font-size:17px}.row p{margin:0;color:var(--muted)}.row .r{font-weight:700;color:var(--primary)}
+.edu{display:grid;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px}
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:28px;margin-bottom:24px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:0 18px 34px -20px var(--primary)}
+.card h3{font-size:21px;color:var(--ink);margin-bottom:8px}
+.meta{color:var(--primary);font-weight:700;font-size:14.5px;margin:0 0 16px}
+dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:12px 20px}
+dt{font-weight:700}dd{margin:0;color:var(--muted)}
+.todo{background:var(--todo);border:1.5px dashed var(--todo-line);border-radius:8px;padding:6px 12px;display:inline-block;color:var(--ink)}
+.shot{border:1.5px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--muted)}
+.post p{margin:0 0 12px}
+.pic{width:200px;max-width:100%;aspect-ratio:1/1;border-radius:14px;background:var(--photo) center 15%/cover no-repeat;border:1px solid var(--line)}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.link{display:block;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;text-decoration:none;transition:transform .3s,box-shadow .3s,border-color .3s}
+.link:hover{transform:translateY(-6px) rotate(-1deg);border-color:var(--accent);box-shadow:0 18px 34px -20px var(--accent)}
+.link b{display:block;font-family:Unbounded,sans-serif;font-size:19px;color:var(--primary);margin-bottom:4px}
+.link span{color:var(--muted);font-size:15px;word-break:break-word}
+.video{aspect-ratio:16/9;border:1.5px dashed var(--todo-line);background:var(--todo);border-radius:22px;display:grid;place-items:center;text-align:center;padding:20px}
+footer{padding:26px 0 40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:820px){
+  .about-grid{grid-template-columns:1fr;gap:28px}
+  .side{position:static}
+  dl{grid-template-columns:1fr;gap:2px 0}dt{margin-top:10px}
+  .page{padding-top:36px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><i></i><i></i></div>
+<header><div class="wrap">
+  <a class="logo" href="#about">Hari Om Avhad | Portfolio</a>
+  <nav aria-label="Main menu">
+    <a href="#about">About Me</a>
+    <a href="#blogs">Blogs</a>
+    <a href="#projects">Technical Projects</a>
+    <a href="#links">Other Accounts</a>
+  </nav>
+</div></header>
+
+<main>
+<!-- PAGE 1: ABOUT ME -->
+<section class="page" data-page="about"><div class="wrap">
+  <div class="about-grid">
+    <aside class="side">
+      <div class="avatar" aria-hidden="true">HA</div>
+      <h1>Hari Om Avhad</h1>
+      <p class="role"><span id="typed">Software Developer</span><span class="caret"></span></p>
+      <p><b>Email</b><br><span class="todo">Add your email</span></p>
+      <p><b>Location</b><br>Pune, Maharashtra</p>
+      <p><b>College</b><br>JSPM University, Pune</p>
+      <p><b>Branch and year</b><br>Computer Science Engineering, B.Tech 2025 – 2029</p>
+      <p><b>CGPA</b><br>6.5</p>
+      <div class="btns">
+        <span class="todo">Add your resume PDF link</span>
+      </div>
+    </aside>
+    <div>
+      <h2 class="title">About me</h2>
+      <p class="sub">I’m a second-year Computer Science Engineering student who enjoys programming and solving problems. I like learning new technologies, building efficient applications and working in teams. I want to grow into a professional software developer.</p>
+      <div class="code" role="img" aria-label="Profile summary shown as a JSON API response"><span class="d">GET /api/hariom</span>
+{ <span class="k">"stack"</span>: [<span class="s">"Node.js"</span>, <span class="s">"Express"</span>, <span class="s">"MongoDB"</span>],
+  <span class="k">"auth"</span>: <span class="s">"JWT"</span>, <span class="k">"projects"</span>: 4,
+  <span class="k">"learning"</span>: <span class="s">"React Native"</span> }</div>
+
+      <h3 class="sec">Skills</h3>
+      <div class="chips">
+        <span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">HTML5</span><span class="chip">CSS3</span>
+        <span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">REST APIs</span><span class="chip">JWT Authentication</span>
+        <span class="chip">MongoDB</span><span class="chip">PostgreSQL</span><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Postman</span>
+        <span class="chip">ffmpeg</span><span class="chip">Pillow (Python)</span><span class="chip learn">React Native (learning)</span>
+      </div>
+
+      <h3 class="sec">Experience and achievements</h3>
+      <div class="card" style="padding:20px">
+        <div class="row"><h3 style="font-size:20px;margin:0">Web Full Stack Development Intern, Thiranex</h3><span class="r">2026</span></div>
+        <ul class="plain" style="margin-top:12px">
+          <li>Built four full-stack web projects covering frontend basics and backend REST APIs.</li>
+          <li>Implemented CRUD operations with MongoDB, and backend logic with Node.js and Express.js.</li>
+          <li>Added JWT-based authentication for secure login and access.</li>
+          <li>Learned what web apps need for deployment.</li>
+        </ul>
+      </div>
+      <div class="card" style="padding:20px">
+        <div class="row"><h3 style="font-size:20px;margin:0">Summer Internship, Data Analytics, Thiranex</h3><span class="r">Summer 2026</span></div>
+        <ul class="plain" style="margin-top:12px">
+          <li>Cleaned and organised raw datasets with Python before analysis.</li>
+          <li>Explored the data to find patterns, trends and outliers.</li>
+          <li>Built charts and short summaries to present findings clearly.</li>
+          <li>Documented each step so the analysis could be repeated.</li>
+        </ul>
+      </div>
+      <p><span class="todo">Add: certifications, clubs, volunteering and other achievements</span></p>
+
+      <h3 class="sec">Education</h3>
+      <div class="edu">
+        <div class="row"><div><h3>B.Tech, Computer Science Engineering</h3><p>JSPM University, Pune</p></div><div class="r">2025 – 2029 · CGPA 6.5</div></div>
+        <div class="row"><div><h3>HSC</h3><p>Ankhire Devi College, Fakarabad</p></div><div class="r">80%</div></div>
+        <div class="row"><div><h3>SSC</h3><p>M.G. School, Karmala</p></div><div class="r">82%</div></div>
+      </div>
+
+      <h3 class="sec">Interests and career goals</h3>
+      <p class="sub" style="margin:0">I’m interested in full-stack web development, backend APIs and mobile apps with React Native. My goal is to join a team as a software developer, ship real products and keep learning.</p>
+      <div class="btns">
+        <span class="todo">Add your resume PDF link</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- PAGE 2: BLOGS -->
+<section class="page" data-page="blogs"><div class="wrap">
+  <h2 class="title">Blogs</h2>
+  <p class="sub">My experiences in my own words. Each post is 150 to 300 words with a photo of my own.</p>
+  <article class="card post">
+    <h3>What my full-stack internship at Thiranex taught me</h3>
+    <p class="meta">2026 · Internship experience</p>
+    <p style="margin-top:16px">This year I joined Thiranex as a Web Full Stack Development intern. I had written small programs before, but I had never built an application where the frontend, the API and the database all had to work together. During the internship I built four full-stack projects.</p>
+    <p>The first big lesson was CRUD. Creating, viewing, updating and deleting data in MongoDB sounds simple, until a typo in a route means nothing saves and you have to trace the request step by step. Postman became my best friend for testing each endpoint before I touched the frontend.</p>
+    <p>The second lesson was authentication. Adding JWT login made me think about who is allowed to see what, and why a token should never be trusted blindly. That was the moment my projects started to feel like real software.</p>
+    <p>I also learned that building an app is only half the job. Thinking about deployment early changed how I organised my code and settings.</p>
+    <p>Next, I want to write clearer documentation for every project and put each one on GitHub with a proper README.</p>
+  </article>
+  <article class="card post">
+    <h3>Learning Java and React Native side by side</h3>
+    <p class="meta">2026 · Learning journey</p>
+    <p style="margin-top:16px">I’m in my second year of Computer Science Engineering at JSPM University, and my days are split between two worlds. In class I’m learning Java and object-oriented programming. On my own I’m learning React Native to build mobile apps.</p>
+    <p>At first it felt like too much. Java asks me to think carefully about classes, objects and structure. JavaScript lets me move fast and fix things later. But I’ve started to notice that each one improves the other. Java’s discipline makes me plan my JavaScript better, and JavaScript’s speed reminds me to build small things and test them often.</p>
+    <p>The biggest challenge is time. When assignments, practice and self-study pile up, I make a short list each week and finish the hardest task first. It isn’t perfect, but it keeps me moving.</p>
+    <p>What I enjoy most is the moment something finally runs. Whether it’s a Java program printing the right output or a screen appearing on my phone, that small win makes the effort worth it.</p>
+    <p>Next, I’ll turn my Java assignments into small projects on GitHub and build my first React Native app.</p>
+  </article>
+</div></section>
+
+<!-- PAGE 3: PROJECTS -->
+<section class="page" data-page="projects"><div class="wrap">
+  <h2 class="title">Technical projects</h2>
+  <p class="sub">What I’ve built, how it works and where to find the code.</p>
+
+  <article class="card">
+    <h3>Task Manager with secure login</h3>
+    <p class="meta">Full-stack web app built during my Thiranex internship</p>
+    <dl>
+      <dt>Problem statement</dt><dd>People lose track of daily tasks when they keep them in notes or chats. This app gives each user a private place to manage their own tasks.</dd>
+      <dt>Description</dt><dd>A Node.js and Express backend exposes REST APIs for tasks, and MongoDB stores users and tasks. A user signs up and logs in, the server issues a JWT, and every task request checks that token so people only see their own data. The frontend is built with HTML, CSS and JavaScript and talks to these APIs.</dd>
+      <dt>Concepts used</dt><dd>Node.js, Express.js, REST APIs, MongoDB CRUD operations, JWT authentication</dd>
+      <dt>Features</dt><dd>Sign up and login with JWT. Create, view, update and delete tasks. Each user sees only their own tasks. Endpoints tested with Postman.</dd>
+    </dl>
+  </article>
+
+  <article class="card">
+    <h3>Student Record Manager (Java)</h3>
+    <p class="meta">Java Programming mini project</p>
+    <dl>
+      <dt>Problem statement</dt><dd>Keeping student records on paper or in scattered files makes searching and updating them slow and error-prone.</dd>
+      <dt>Description</dt><dd>A console program built with object-oriented Java. A Student class holds the data, and a manager class keeps students in an ArrayList and offers add, search, update, delete and sort. Input is validated and errors are handled with exceptions.</dd>
+      <dt>Concepts used</dt><dd>Classes and objects, encapsulation, ArrayList and the Collections framework, exception handling, sorting with Comparator</dd>
+      <dt>Features</dt><dd>Add, search, update and delete records. Sort by name or marks. Input validation with clear error messages.</dd>
+    </dl>
+  </article>
+
+  <article class="card">
+    <h3>Image and Video Helper (Python)</h3>
+    <p class="meta">Personal automation project</p>
+    <dl>
+      <dt>Problem statement</dt><dd>Resizing images and converting videos one by one is slow and repetitive.</dd>
+      <dt>Description</dt><dd>A Python script reads a folder, uses Pillow to resize and convert images in a batch, and calls ffmpeg to convert video files. Results are saved to a separate output folder so the originals stay safe.</dd>
+      <dt>Concepts used</dt><dd>Python scripting, file handling, Pillow, ffmpeg, command-line arguments</dd>
+      <dt>Features</dt><dd>Batch image resize. Image format conversion. Video conversion with ffmpeg. Separate output folder.</dd>
+    </dl>
+  </article>
+</div></section>
+
+<!-- PAGE 4: LINKS -->
+<section class="page" data-page="links"><div class="wrap">
+  <h2 class="title">Links to other accounts</h2>
+  <p class="sub">Find me online in one place.</p>
+  <div class="links">
+    <div class="link"><b>LinkedIn</b><span class="todo">Add your profile link</span></div>
+    <div class="link"><b>GitHub</b><span class="todo">Add your profile link</span></div>
+  </div>
+  <h3 class="sec">Self-introduction video</h3>
+  <div class="video"><div><b>Self-introduction video</b><br><span class="todo">Add your video link</span></div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">© 2026 Hari Om Avhad</div></footer>
+
+<script>
+(function(){
+  var pages=document.querySelectorAll('.page'),links=document.querySelectorAll('nav a');
+  var names=['about','blogs','projects','links'];
+  var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function reveal(page){
+    var items=page.querySelectorAll('h2.title,.sub,.side,.code,h3.sec,.chip,.card,.edu,.link,.video,.btns');
+    items.forEach(function(el,i){
+      el.classList.remove('rv');void el.offsetWidth;
+      el.style.animationDelay=Math.min(i*55,700)+'ms';
+      el.classList.add('rv');
+    });
+  }
+  function show(){
+    var h=(location.hash||'').replace('#','');
+    if(names.indexOf(h)<0)h='about';
+    var cur;
+    pages.forEach(function(p){
+      var on=p.getAttribute('data-page')===h;
+      p.classList.toggle('on',on);
+      if(on)cur=p;
+    });
+    links.forEach(function(a){
+      if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0,0);
+    if(cur&&!still)reveal(cur);
+  }
+  window.addEventListener('hashchange',show);
+  show();
+  var el=document.getElementById('typed');
+  if(el&&!still){
+    var words=['Software Developer','Full Stack Developer','Data Analytics Intern','React Native Learner'];
+    var w=0,c=words[0].length,del=true;
+    (function tick(){
+      var word=words[w];
+      el.textContent=word.slice(0,c);
+      if(del){
+        if(c>0){c--;setTimeout(tick,40);}else{del=false;w=(w+1)%words.length;setTimeout(tick,250);}
+      }else{
+        if(c<words[w].length){c++;setTimeout(tick,75);}else{del=true;setTimeout(tick,1800);}
+      }
+    })();
+    setTimeout(function(){},0);
+  }
+})();
+</script>
+</body>
+</html>
